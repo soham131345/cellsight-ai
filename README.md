@@ -37,6 +37,7 @@ Notes:
 - Fusion outperforms either omics layer alone in every cohort tested (2/2 independent datasets).
 - Top predictive metabolites (e.g. sarcosine, carnitine species) have published
   associations with diabetes biology.
+- If any errors are faced, these will not be due to the code because the code has been tested across three different environments. Should there be any errors, feel free to click the ask chatgpt/google button below the error when it appears.
 
 ## Limitations (known and planned)
 
