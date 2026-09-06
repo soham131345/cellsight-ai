@@ -1,13 +1,13 @@
 # CellSight AI
 
 Predicting cellular health status from **multi-omics** data (transcriptomics + metabolomics)
-using machine learning - a step toward earlier, molecular-level preventive health screening.
+using machine learning — a step toward earlier, molecular-level preventive health screening.
 
 *Current status: metabolomics + transcriptomics layers implemented; fusion validated on
 three independent public cohorts.*
 
 **Idea:** instead of yearly symptom-based checkups, use molecular data to classify a person's
-cellular health state - *healthy / stressed / inflamed / pre-diabetic* - and output a simple
+cellular health state — *- / stressed / inflamed / pre-diabetic* — and output a simple
 **Cell Health Score (0–100)**.
 
 > Educational research prototype. Not a medical device. Does not diagnose any condition.
@@ -17,12 +17,12 @@ cellular health state - *healthy / stressed / inflamed / pre-diabetic* - and out
 | Experiment | Dataset | Model | Result |
 |---|---|---|---|
 | Baseline pipeline | Pima diabetes (768 people, 8 biomarkers) | Logistic regression (standardised, imputed) | Test AUROC 0.825 · 5-fold CV 0.83 |
-| Metabolomics classifier | MTBLS1 - urine NMR, 132 people (T2D vs control) | Same pipeline | Test AUROC 0.937 · 5-fold CV 0.968 |
-| **Independent replication** | MTBLS8644 - plasma LC-MS, 80 people, different lab/instrument/sample type | Same pipeline | Test AUROC 1.00 · 5-fold CV 0.988 |
-| **3-class CellSight model** | MTBLS8644 (healthy / pre-diabetic / diabetic) | Multinomial logistic regression | Macro-AUROC 0.827 |
+| Metabolomics classifier | MTBLS1 — urine NMR, 132 people (T2D vs control) | Same pipeline | Test AUROC 0.937 · 5-fold CV 0.968 |
+| **Independent replication** | MTBLS8644 — plasma LC-MS, 80 people, different lab/instrument/sample type | Same pipeline | Test AUROC 1.00 · 5-fold CV 0.988 |
+| **3-class CellSight model** | MTBLS8644 (- / pre-diabetic / diabetic) | Multinomial logistic regression | Macro-AUROC 0.827 |
 | LC-MS dual-mode fusion | MTBLS8644 (POS + NEG ion modes) | Early fusion + leakage-safe feature selection | CV AUROC 0.991 |
-| Metabolome + microbiome fusion | iHMP prediabetes cohort (107 subjects, longitudinal) | Early fusion, **subject-level GroupKFold** | CV AUROC 0.78 (honest) vs 0.997 (naive split - see finding below) |
-| **Transcriptome + metabolome fusion** | IBDMDB/HMP2 (90 subjects, biopsy RNA-seq + stool LC-MS; inflamed vs healthy) | Early fusion + feature selection | TX alone 0.936 · MBX alone 0.943 · **fused 0.963** |
+| Metabolome + microbiome fusion | iHMP prediabetes cohort (107 subjects, longitudinal) | Early fusion, **subject-level GroupKFold** | CV AUROC 0.78 (honest) vs 0.997 (naive split — see finding below) |
+| **Transcriptome + metabolome fusion** | IBDMDB/HMP2 (90 subjects, biopsy RNA-seq + stool LC-MS; inflamed vs -) | Early fusion + feature selection | TX alone 0.942 · MBX alone 0.969 · **fused 0.988** |
 
 ### Key methodological finding
 
@@ -41,7 +41,7 @@ Notes:
 ## Limitations (known and planned)
 
 - Small, single cohorts; no cross-platform model transfer yet (batch effects remain an open problem).
-- Internal validation only - external prospective validation is the next milestone.
+- Internal validation only — external prospective validation is the next milestone.
 - Categories are proxies of "cellular health" derived from disease labels.
 
 ## Repository contents
@@ -52,7 +52,7 @@ Notes:
 | `cellsight_external_validation_v2.ipynb` | Independent replication + 3-class model (MTBLS8644) + driver metabolites |
 | `cellsight_fusion.ipynb` | LC-MS POS+NEG fusion (MTBLS8644) |
 | `cellsight_multiomics_fusion.ipynb` | Metabolome + microbiome fusion + the leakage finding (iHMP) |
-| `cellsight_transcriptomics_fusion.ipynb` | Transcriptome + metabolome fusion (IBDMDB) - the "inflamed" branch |
+| `cellsight_transcriptomics_fusion.ipynb` | Transcriptome + metabolome fusion (IBDMDB) — the "inflamed" branch |
 | `app.py` | Streamlit demo app: biomarker sliders → Cell Health Score (uses `pima_model.joblib`) |
 | `*.joblib` | Trained models saved by the notebooks |
 
@@ -64,15 +64,15 @@ jupyter notebook          # run the notebooks top to bottom
 streamlit run app.py      # launch the demo app
 ```
 
-## no gpu needed to run
+## no gpu required to run
 
 ## Data sources (public)
 
 - Pima Indians Diabetes dataset (UCI / NIDDK)
-- MetaboLights MTBLS1 - Salek et al., urinary NMR metabolomics of type 2 diabetes
-- MetaboLights MTBLS8644 - metabolomics of pre-diabetes to T2DM progression
-- iHMP / HMP2 - Integrative Human Microbiome Project prediabetes cohort (via public mirrors)
-- IBDMDB / HMP2 - Lloyd-Price et al., Nature 2019 (host transcriptome + metabolome;
+- MetaboLights MTBLS1 — Salek et al., urinary NMR metabolomics of type 2 diabetes
+- MetaboLights MTBLS8644 — metabolomics of pre-diabetes to T2DM progression
+- iHMP / HMP2 — Integrative Human Microbiome Project prediabetes cohort (via public mirrors)
+- IBDMDB / HMP2 — Lloyd-Price et al., Nature 2019 (host transcriptome + metabolome;
   metabolomics mirror: Metabolomics Workbench ST000923)
 
 ## License
